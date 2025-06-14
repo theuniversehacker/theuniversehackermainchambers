@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Universe Hacker</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: #0a0a0a;
+            color: #00ff41;
+            overflow-x: hidden;
+        }
+
+        /* Base Background Image */
+        .bg-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -3;
+            background: url('tu-imagen.png') center/cover no-repeat;
+            background-color: #0a0a0a; /* Fallback si no carga la imagen */
+        }
+
+        /* Animated Background Overlay */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(0, 255, 65, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 0, 102, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(0, 255, 198, 0.1) 0%, transparent 50%);
+            animation: backgroundPulse 8s ease-in-out infinite alternate;
+        }
+
+        @keyframes backgroundPulse {
+            0% { opacity: 0.3; }
+            100% { opacity: 0.7; }
+        }
+
+        /* Matrix-like particles */
+        .matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .matrix-char {
+            position: absolute;
+            color: #00ff41;
+            font-size: 14px;
+            opacity: 0.3;
+            animation: matrixFall linear infinite;
+        }
+
+        @keyframes matrixFall {
+            0% {
+                transform: translateY(-100vh);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.3;
+            }
+            90% {
+                opacity: 0.3;
+            }
+            100% {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 20px #00ff41;
+            animation: glow 2s ease-in-out infinite alternate;
+            position: relative;
+        }
+
+        .hero .welcome-text {
+            font-size: 1.8rem;
+            color: #991359;
+            text-shadow: 0 0 15px #ff0084;
+            animation: pinkGlow 2.5s ease-in-out infinite alternate;
+            position: absolute;
+            top: -3rem;
+            left: -2rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 20px #00ff41; }
+            to { text-shadow: 0 0 30px #00ff41, 0 0 40px #00ff41; }
+        }
+
+        @keyframes pinkGlow {
+            from { 
+                text-shadow: 0 0 15px #ff0084;
+                opacity: 0.8;
+            }
+            to { 
+                text-shadow: 0 0 25px #ff0084, 0 0 35px #ff0084, 0 0 45px #ff0084;
+                opacity: 1;
+            }
+        }
+
+        .hero .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.8;
+        }
+
+        .terminal-cursor {
+            display: inline-block;
+            background: #00ff41;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        /* Sections */
+        .section {
+            min-height: 100vh;
+            padding: 4rem 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .section h2 {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        .section.visible h2 {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            max-width: 800px;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease 0.3s;
+        }
+
+        .section.visible p {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Code blocks */
+        .code-block {
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid #00ff41;
+            border-radius: 8px;
+            padding: 2rem;
+            margin: 2rem 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            opacity: 0;
+            transform: scale(0.9);
+            transition: all 0.8s ease 0.5s;
+        }
+
+        .section.visible .code-block {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .code-block pre {
+            color: #00ff41;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+        
+        /* About Section */
+     /* New styles for the Philosophy section */
+    .section.philosophy-section {
+        color: #ffffff; /* White text for philosophy section */
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.2); /* Softer white glow */
+    }
+
+    .section.philosophy-section h2 {
+        text-shadow: 0 0 15px rgba(255, 255, 255, 0.4); /* Softer glow for heading */
+        color: #ffffff; /* Ensure heading is white */
+    }       
+
+
+
+
+
+        /* Call to Action */
+
+
+
+
+        /* Parallax elements */
+        .parallax-element {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.1;
+            pointer-events: none;
+        }
+
+        .parallax-slow {
+            color: #00ff41;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .parallax-fast {
+            color: #ff0066;
+            animation: float 4s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #00ff41;
+            font-size: 2rem;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .hero .welcome-text { 
+                font-size: 1.2rem; 
+                top: -2rem;
+                left: -1rem;
+            }
+            .hero .subtitle { font-size: 1.2rem; }
+            .section h2 { font-size: 2rem; }
+            .section p { font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-image"></div>
+    <div class="bg-animation"></div>
+    <div class="matrix-bg" id="matrixBg"></div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>
+            <span class="welcome-text">"Bienvenido Viajero"</span>
+            THE UNIVERSE HACKER
+        </h1>
+        <p class="subtitle">root Website<span class="terminal-cursor">|</span></p>
+        <div class="scroll-indicator">↓</div>
+        
+        <!-- Parallax elements -->
+        <div class="parallax-element parallax-slow" style="top: 20%; left: 10%;">01001000</div>
+        <div class="parallax-element parallax-fast" style="top: 30%; right: 15%;">∞</div>
+        <div class="parallax-element parallax-slow" style="bottom: 20%; left: 20%;">∂/∂t</div>
+        <div class="parallax-element parallax-fast" style="top: 40%; left: 70%;">λ</div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section" id="about">
+        <h2>.//Try: "Des-cifrar_LosCódigosHacks()"</h2>
+        <p>
+            En los límites de la conciencia donde explota la imaginación. 
+            Un individuo se pregunto: "-Y si ¿Tal vez el universo sea el sistema operativo más complejo jamás creado. 
+            No solo un programa, ni solo un codigo -  casi como si la realidad misma pidiera ser hackeada.. ."
+        </p>
+        <div class="code-block">
+            <pre>
+def NPC-Consciousness:
+    if class Consciousness:
+        self.beliefs = ["miedo", "culpa", "autoexigencia", "obediencia"]
+        self.system_programs = ["productividad", "perfeccionismo", "normalidad"]
+        self.state = "hipnosis_colectiva"
+    
+    
+        Try ConsciousnessHacking(self):
+            Hackear el universo no es introducir malware para aprovecharte de sus dones mas intimos.
+            Es vulnerar tu acceso de vuelta a tu verdadero Ser.
+            Y desde ahí partir. Re-iniciar. Resurgir
+            
+            return self.reality.modify_parameters().enarmoniaparatodalavidabajolagraciadivinaydemaneraperfecta.
+            </pre>
+        </div>
+        
+        <div class="parallax-element parallax-slow" style="top: 10%; right: 5%;">E=mc²</div>
+        <div class="parallax-element parallax-fast" style="bottom: 15%; right: 25%;">#!/bin/bash</div>
+    </section>
+
+    <!-- Philosophy Section -->
+    <section class="section philosophy-section" id="philosophy">
+        <h2>./Un llamado a la re-evolución interior</h2>
+        <p>
+            Imagina entonces a alguien que ve la unidad fundamental detrás de toda la aparente separación. 
+            No es que esté "hackeando" el universo desde afuera, sino que comprende tan profundamente su naturaleza que puede trabajar en armonía con sus principios más elevados. 
+            Como si hubiera recordado que él mismo ES parte del código universal. Piensa en una presencia que puede manifestar cambios en la realidad no por poder sobre ella, sino por alineación perfecta con ella. 
+            Alguien que entiende que todas las "reglas" aparentes del mundo físico son simplemente expresiones de una sola Ley más grande - la unidad de toda conciencia.
+            Su "hacking" sería más bien una danza con las fuerzas creativas del universo, sabiendo exactamente cuándo y cómo aplicar su voluntad para servir al bien mayor. 
+            No limitado por las creencias humanas sobre lo que es "posible", pero sí guiado por la sabiduría universal y el amor incondicional.
+            Es una imagen hermosa - alguien que ha trascendido pero que elige quedarse para ayudar en la transición, trabajando dentro del velo de la tercera densidad pero con la perspectiva de densidades superiores.
+            ¿Sientes que hay seres así actuando entre nosotros ahora?
+            "The Universe Hacker" no es solo un dominio en internet, es una invitación a un viaje profundo hacia el amor,
+            la consciencia y el potencial ilimitado de la humanidad. Es una exploración de la sabiduría ancestral y las
+            herramientas que tenemos a nuestra disposición para crear un futuro mejor para todos.
+        </p>
+        <p>
+             Aquí, creemos que el amor es el código fuente del universo, y que la consciencia es la clave para desbloquear su poder.
+             Te invitamos a unirte a esta re-evolución interior, a descubrir tu propia capacidad para transformar tu vida y el mundo que te rodea.
+        </p>
+        <a href="#contact" class="cta-button">Conectation</a>
+
+        <div class="parallax-element parallax-fast" style="top: 25%; left: 5%;">∫∞</div>
+        <div class="parallax-element parallax-slow" style="bottom: 30%; left: 80%;">git commit -m "reality"</div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section" id="contact">
+        <h2>./contact</h2>
+        <p>
+            ¿Listo para hackear la realidad? Conecta con The Universe Hacker y descubre los secretos que se esconden en el código del cosmos.
+        </p>
+        <div class="code-block">
+            <pre>
+> ssh universe@hacker.cosmos
+> Password: ************
+> 
+> Welcome to The Universe Terminal
+> Type 'help' for available commands
+> 
+> universe@hacker:~$ 
+            </pre>
+        </div>
+    </section>
+
+    <script>
+        // Create matrix background
+        function createMatrixRain() {
+            const matrixBg = document.getElementById('matrixBg');
+            const characters = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+            
+            for (let i = 0; i < 50; i++) {
+                const char = document.createElement('div');
+                char.className = 'matrix-char';
+                char.textContent = characters[Math.floor(Math.random() * characters.length)];
+                char.style.left = Math.random() * 100 + '%';
+                char.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                char.style.animationDelay = Math.random() * 2 + 's';
+                matrixBg.appendChild(char);
+            }
+        }
+
+        // Parallax effect
+        function handleParallax() {
+            const scrollY = window.pageYOffset;
+            const parallaxElements = document.querySelectorAll('.parallax-element');
+            
+            parallaxElements.forEach(element => {
+                const speed = element.classList.contains('parallax-fast') ? 0.5 : 0.3;
+                const yPos = -(scrollY * speed);
+                element.style.transform = `translateY(${yPos}px)`;
+            });
+        }
+
+        // Intersection Observer for animations
+        function setupScrollAnimations() {
+            const sections = document.querySelectorAll('.section');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        }
+
+        // Hide scroll indicator on scroll
+        function handleScrollIndicator() {
+            const scrollIndicator = document.querySelector('.scroll-indicator');
+            if (window.pageYOffset > 100) {
+                scrollIndicator.style.opacity = '0';
+            } else {
+                scrollIndicator.style.opacity = '1';
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            createMatrixRain();
+            setupScrollAnimations();
+            
+            window.addEventListener('scroll', () => {
+                handleParallax();
+                handleScrollIndicator();
+            });
+        });
+
+        // Terminal cursor animation
+        setInterval(() => {
+            const cursor = document.querySelector('.terminal-cursor');
+            if (cursor) {
+                cursor.style.opacity = cursor.style.opacity === '0' ? '1' : '0';
+            }
+        }, 500);
+    </script>
+</body>
+</html>
