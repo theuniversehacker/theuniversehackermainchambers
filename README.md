@@ -20,7 +20,7 @@ How to Contribute
 Links
 
 About the Project
-The Universe Hacker is a narrative-driven " ", where players join the Guild/—a secret society of reality hackers decoding the universe’s source code. Explore a 3D sci-fi world, solve quantum puzzles, and manipulate physical laws to uncover cosmic secrets. The project combines programming, philosophy, and storytelling(with VR support planned).
+The Universe Hacker is a narrative-driven " ", where players join the Guild/—a secret society of reality hackers decoding the universe’s source code. Explore, solve , and uncover cosmic secrets. The project combines programming, philosophy, and storytelling(with VR support planned).
 
 Genre: Sci-fi Adventure / Puzzle
 Engine: 
