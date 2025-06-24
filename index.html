@@ -26,9 +26,20 @@
             width: 100%;
             height: 100%;
             z-index: -3;
-            background: url('universe.webp') center/cover no-repeat;
+            background: url('tu-imagen.webp') center/cover no-repeat;
             background-color: #0a0a0a; /* Fallback si no carga la imagen */
         }
+                @keyframes backgroundPan {
+                0% { background-position: center; }
+                50% { background-position: center 10px; }
+                100% { background-position: center; }
+                }
+
+                .bg-image {
+                animation: backgroundPan 20s ease-in-out infinite;
+                }
+
+
 
         /* Animated Background Overlay */
         .bg-animation {
@@ -105,8 +116,20 @@
             position: relative;
         }
 
+        .glitch {
+        animation: glitch 1s infinite;
+        }
+
+        @keyframes glitch {
+        0% { text-shadow: 2px 2px red; }
+        20% { text-shadow: -2px -2px blue; }
+        40% { text-shadow: 2px -2px lime; }
+        60% { text-shadow: -2px 2px magenta; }
+        80% { text-shadow: 2px 2px cyan; }
+        100% { text-shadow: -2px -2px yellow; }
+        }
         .hero .welcome-text {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             color: #991359;
             text-shadow: 0 0 15px #ff0084;
             animation: pinkGlow 2.5s ease-in-out infinite alternate;
@@ -162,9 +185,10 @@
         }
 
         .section h2 {
-            font-size: 3rem;
+            font-size: 2.2rem;
             margin-bottom: 2rem;
             text-align: center;
+            color: white; /* Aquí cambias el color del texto */
             opacity: 0;
             transform: translateY(50px);
             transition: all 0.8s ease;
@@ -176,11 +200,12 @@
         }
 
         .section p {
-            font-size: 1.2rem;
+            font-size: 1.rem;
             line-height: 1.8;
             max-width: 800px;
             text-align: center;
             opacity: 0;
+            color: white;
             transform: translateY(30px);
             transition: all 0.8s ease 0.3s;
         }
@@ -211,8 +236,9 @@
 
         .code-block pre {
             color: #00ff41;
-            font-size: 1rem;
+            font-size: 0.9rem;
             line-height: 1.6;
+            margin-bottom: 3rem; /* Puedes ajustar: 2rem, 4rem, etc. */
         }
         
         /* About Section */
@@ -220,11 +246,13 @@
     .section.philosophy-section {
         color: #ffffff; /* White text for philosophy section */
         text-shadow: 0 0 10px rgba(255, 255, 255, 0.2); /* Softer white glow */
+        margin-bottom: 12rem; /* Puedes ajustar: 2rem, 4rem, etc. */
     }
 
     .section.philosophy-section h2 {
         text-shadow: 0 0 15px rgba(255, 255, 255, 0.4); /* Softer glow for heading */
         color: #ffffff; /* Ensure heading is white */
+        margin-bottom: 6rem; /* Puedes ajustar: 2rem, 4rem, etc. */
     }       
 
 
@@ -298,10 +326,10 @@
     <!-- Hero Section -->
     <section class="hero">
         <h1>
-            <span class="welcome-text">"Bienvenido Viajero"</span>
-            THE UNIVERSE HACKER
+            <span class="welcome-text">"Welcome Traveler"</span>
+            <span class="glitch">THE UNIVERSE HACKER</span>
         </h1>
-        <p class="subtitle">root Website<span class="terminal-cursor">|</span></p>
+        <p class="subtitle">rootcore<span class="terminal-cursor">|</span></p>
         <div class="scroll-indicator">↓</div>
         
         <!-- Parallax elements -->
@@ -313,11 +341,11 @@
 
     <!-- About Section -->
     <section class="section" id="about">
-        <h2>.//Try: "Des-cifrar_LosCódigosHacks()"</h2>
+        <h2>.//Trying:To["Des_cipher]TheCodeHack(s)"</h2>
         <p>
-            En los límites de la conciencia donde explota la imaginación. 
-            Un individuo se pregunto: "-Y si ¿Tal vez el universo sea el sistema operativo más complejo jamás creado. 
-            No solo un programa, ni solo un codigo -  casi como si la realidad misma pidiera ser hackeada.. ."
+            En los límites de la conciencia donde se explora la imaginación... 
+           -"¿Qué pasaría Si el universo fuese no solo el sistema operativo más complejo jamás creado. 
+            No solo un programa, ni solo un codigo? -  algo casi como si la realidad misma pidiera ser hackeada.. ."
         </p>
         <div class="code-block">
             <pre>
@@ -333,7 +361,7 @@ def NPC-Consciousness:
             Es vulnerar tu acceso de vuelta a tu verdadero Ser.
             Y desde ahí partir. Re-iniciar. Resurgir
             
-            return self.reality.modify_parameters().enarmoniaparatodalavidabajolagraciadivinaydemaneraperfecta.
+            return self.reality.modify_parameters().EnArmoniaParaTodaLaVidaBajoLaGraciaDivinayDeManeraPerfecta.
             </pre>
         </div>
         
@@ -343,7 +371,8 @@ def NPC-Consciousness:
 
     <!-- Philosophy Section -->
     <section class="section philosophy-section" id="philosophy">
-        <h2>./Un llamado a la re-evolución interior</h2>
+        <h2>Class Consciousness Hacks</h2>
+        <h2>./Un llamado a la re-evolución interna</h2>
         <p>
             Imagina entonces a alguien que ve la unidad fundamental detrás de toda la aparente separación. 
             No es que esté "hackeando" el universo desde afuera, sino que comprende tan profundamente su naturaleza que puede trabajar en armonía con sus principios más elevados. 
